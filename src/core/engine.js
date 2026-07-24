@@ -4,6 +4,7 @@ import { Particle, Star } from './particle.js';
 import { audio } from './audio.js';
 import { storage } from './storage.js';
 import { clamp } from './utils.js';
+import { Adaptive } from './adaptive.js';
 
 export class GameEngine {
   constructor(canvas, uiLayer) {
@@ -17,7 +18,8 @@ export class GameEngine {
     this.stars = [];
     this.last = 0;
     this.running = false;
-    this.version = '1.0';
+    this.version = '1.5';
+    this.adaptive = new Adaptive(storage);
     this.resize();
     window.addEventListener('resize', () => this.resize());
     this.initStars();

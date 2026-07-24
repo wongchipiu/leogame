@@ -307,6 +307,23 @@ body {
 .topic-rate { width: 50px; text-align: right; }
 .tip-box { background: rgba(251,191,36,0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 12px; font-size: 13px; line-height: 1.6; color: var(--silver); margin-top: 12px; }
 
+/* ========== 成就 ========== */
+.ach-banners { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 360px; }
+.ach-banner { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); border: 1px solid var(--gold); border-radius: 10px; padding: 12px; animation: cardIn 0.5s ease; }
+.ach-icon { font-size: 28px; }
+.ach-info { flex: 1; text-align: left; }
+.ach-name { font-weight: 700; color: var(--gold); }
+.ach-desc { font-size: 12px; color: var(--muted); }
+.ach-wall { width: 100%; max-width: 760px; margin-top: 24px; }
+.ach-wall-title { color: var(--gold); margin-bottom: 12px; text-align: center; }
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.ach-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
+.ach-item.got { border-color: var(--gold); background: rgba(251,191,36,0.08); }
+.ach-item.locked { opacity: 0.5; }
+.ach-item-icon { font-size: 28px; margin-bottom: 6px; }
+.ach-item-name { font-size: 14px; font-weight: 700; }
+.ach-item-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
 /* ========== 响应式 ========== */
 @media (max-width: 480px) {
   .scene { padding: 10px; }

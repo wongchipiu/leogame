@@ -3,6 +3,7 @@ import { Scene } from '../core/scene.js';
 import { el } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { ULTRAMEN, RARITY_INFO } from '../data/ultraman.js';
+import { ACHIEVEMENTS } from '../data/achievements.js';
 import { MenuScene } from './menu-scene.js';
 
 export class CollectionScene extends Scene {
@@ -33,6 +34,21 @@ export class CollectionScene extends Scene {
       grid.appendChild(card);
     });
     this.root.appendChild(grid);
+
+    // 成就墙
+    const achWall = el('div', { class: 'ach-wall' }, [
+      el('h3', { class: 'ach-wall-title', text: `🏆 成就 ${s.achievements.length}/${ACHIEVEMENTS.length}` }),
+      el('div', { class: 'ach-grid' }, ACHIEVEMENTS.map(a => {
+        const got = s.achievements.includes(a.id);
+        return el('div', { class: 'ach-item ' + (got ? 'got' : 'locked') }, [
+          el('div', { class: 'ach-item-icon', text: got ? a.icon : '🔒' }),
+          el('div', { class: 'ach-item-name', text: a.name }),
+          el('div', { class: 'ach-item-desc', text: a.desc }),
+        ]);
+      })),
+    ]);
+    this.root.appendChild(achWall);
+
     this.root.appendChild(el('button', { class: 'btn btn-back', text: '◀ 返回', onclick: () => { audio.click(); this.go(MenuScene); } }));
   }
 }

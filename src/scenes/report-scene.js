@@ -25,6 +25,7 @@ export class ReportScene extends Scene {
       reportCard('英语', `${st.englishCorrect}/${engTotal}`, engRate + '%', '#10b981'),
       reportCard('光之等级', `Lv.${s.lightLevel}`, s.lightExp + '/'+(s.lightLevel*100)+' EXP', '#fbbf24'),
       reportCard('收集卡片', `${s.collectedCards.length}`, '张', '#a855f7'),
+      reportCard('连续打卡', `${st.dailyStreak || 0}`, '🔥 天', '#f97316'),
     ]));
 
     // 每日任务

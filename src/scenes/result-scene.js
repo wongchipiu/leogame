@@ -5,6 +5,7 @@ import { audio } from '../core/audio.js';
 import { ULTRAMAN_MAP, RARITY_INFO } from '../data/ultraman.js';
 import { LEVELS, LEVEL_MAP } from '../data/levels.js';
 import { todayKey } from '../core/storage.js';
+import { checkAchievements } from '../data/achievements.js';
 import { LevelSelectScene } from './level-select-scene.js';
 import { MenuScene } from './menu-scene.js';
 
@@ -102,6 +103,21 @@ export class ResultScene extends Scene {
       }
     });
 
+    // 每日连续打卡：数学+英语各满3题
+    const done = s.stats.dailyDone;
+    if (done.math >= 3 && done.english >= 3) {
+      s.stats.lastFullDailyDate = s.stats.lastFullDailyDate || null;
+      if (s.stats.lastFullDailyDate !== tk) {
+        const yd = new Date(); yd.setDate(yd.getDate() - 1);
+        const yk = `${yd.getFullYear()}-${yd.getMonth() + 1}-${yd.getDate()}`;
+        s.stats.dailyStreak = (s.stats.lastFullDailyDate === yk) ? (s.stats.dailyStreak || 0) + 1 : 1;
+        s.stats.lastFullDailyDate = tk;
+      }
+    }
+
+    // 成就检查
+    this.newAchievements = checkAchievements(this.store);
+
     this.store.save();
   }
 
@@ -147,6 +163,22 @@ export class ResultScene extends Scene {
         el('div', { text: '🃏 获得变身卡' }),
         el('div', { class: 'dc-name', text: u.name, style: `color:${u.color}` }),
       ]));
+    }
+
+    // 新成就展示
+    if (this.newAchievements && this.newAchievements.length) {
+      audio.unlock();
+      const aBox = el('div', { class: 'ach-banners' });
+      this.newAchievements.forEach(a => {
+        aBox.appendChild(el('div', { class: 'ach-banner' }, [
+          el('span', { class: 'ach-icon', text: a.icon }),
+          el('div', { class: 'ach-info' }, [
+            el('div', { class: 'ach-name', text: a.name }),
+            el('div', { class: 'ach-desc', text: a.desc }),
+          ]),
+        ]));
+      });
+      this.root.appendChild(aBox);
     }
 
     // 按钮

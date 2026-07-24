@@ -24,15 +24,25 @@ export class ChamberScene extends Scene {
   buildPuzzles() {
     const level = this.level;
     const [minD, maxD] = level.diffRange;
+    const adaptive = this.engine.adaptive;
     this.puzzles = [];
     const exclude = [];
     for (let i = 0; i < level.mechanisms.length; i++) {
       const mech = level.mechanisms[i];
       if (mech === 'boss') continue;
+      // 自适应：综合关选最薄弱 topic，否则轮换；按掌握度推荐难度
+      let topic = null;
+      if (level.topics.length) {
+        topic = level.subject === 'mixed'
+          ? adaptive.weakestTopic(level.topics)
+          : level.topics[i % level.topics.length];
+      }
+      const recDiff = adaptive.recommendDiff(topic, minD, maxD);
       const picked = pickQuestions({
         subject: level.subject === 'mixed' ? null : level.subject,
         topics: level.topics.length ? level.topics : null,
-        minDiff: minD, maxDiff: maxD, count: 1, exclude,
+        minDiff: Math.max(minD, recDiff - 1), maxDiff: Math.min(maxD, recDiff + 1),
+        count: 1, exclude,
       });
       if (!picked.length) continue;
       this.puzzles.push({ mechanism: mech, question: picked[0] });
@@ -78,6 +88,7 @@ export class ChamberScene extends Scene {
         this.run.chamberTotal++;
         if (correct) this.run.chamberCorrect++;
         this.run.history.push({ id: p.question.id, correct, subject: p.question.subject, topic: p.question.topic });
+        this.engine.adaptive.update(p.question.topic, correct);
       },
       onContinue: () => {
         this.index++;

@@ -59,6 +59,7 @@ export class BattleScene extends Scene {
       engine: this.engine,
       onAnswered: (correct) => {
         this.run.history.push({ id: this.bossQuestion.id, correct, subject: this.bossQuestion.subject, topic: this.bossQuestion.topic, boss: true });
+        this.engine.adaptive.update(this.bossQuestion.topic, correct);
         if (correct) {
           this.bossHp = 0;
           this.run.bossCorrect = (this.run.bossCorrect || 0) + 1;
