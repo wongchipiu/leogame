@@ -15,6 +15,7 @@ export class ResultScene extends Scene {
     this.win = payload.win;
     this.compute();
     this.applyRewards();
+    audio.startMusic('result');
     this.render();
   }
 

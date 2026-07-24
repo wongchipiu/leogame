@@ -14,6 +14,7 @@ import { ULTRAMEN } from '../data/ultraman.js';
 export class MenuScene extends Scene {
   mount() {
     const s = this.store.get();
+    audio.startMusic('menu');
     this.root.className = 'scene scene-menu';
     this.root.appendChild(el('div', { class: 'logo' }, [
       el('h1', { class: 'title', text: '奥特曼' }),

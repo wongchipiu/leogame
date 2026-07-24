@@ -26,6 +26,7 @@ export class TransformScene extends Scene {
     this.silhouette = el('div', { class: 'transform-silhouette' });
     this.root.appendChild(this.silhouette);
 
+    audio.startMusic('chamber');
     this.runSequence();
   }
 

@@ -19,6 +19,7 @@ export class SettingsScene extends Scene {
         btn.className = 'toggle ' + (s.settings[key] ? 'on' : 'off');
         btn.textContent = s.settings[key] ? '开' : '关';
         audio.setEnabled(s.settings.sound);
+        audio.setMusicEnabled(s.settings.music);
         if (s.settings[key]) audio.click();
       };
       row.appendChild(btn);

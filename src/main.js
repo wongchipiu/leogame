@@ -12,7 +12,8 @@ window.__engine = engine;
 const activate = () => {
   audio.resume();
   audio.setEnabled(engine.store.get().settings.sound);
-  if (engine.store.get().settings.music) audio.bgm();
+  audio.setMusicEnabled(engine.store.get().settings.music);
+  if (engine.store.get().settings.music) audio.startMusic('menu');
   window.removeEventListener('pointerdown', activate);
 };
 window.addEventListener('pointerdown', activate);

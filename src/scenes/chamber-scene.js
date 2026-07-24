@@ -1,10 +1,11 @@
-// 密室解谜场景：管理关卡内谜题序列
+// 密室解谜场景：管理关卡内谜题序列 + 分段故事对话
 import { Scene } from '../core/scene.js';
-import { el } from '../core/utils.js';
+import { el, sleep } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { pickQuestions } from '../data/questions.js';
 import { MECHANISMS } from '../data/levels.js';
 import { mountQuestion } from '../ui/question-view.js';
+import { avatarSVG } from '../core/avatar.js';
 import { BattleScene } from './battle-scene.js';
 import { LevelSelectScene } from './level-select-scene.js';
 
@@ -18,7 +19,8 @@ export class ChamberScene extends Scene {
     };
     this.buildPuzzles();
     this.index = 0;
-    this.renderFrame();
+    // 开场故事
+    this.showStory();
   }
 
   buildPuzzles() {
@@ -30,7 +32,6 @@ export class ChamberScene extends Scene {
     for (let i = 0; i < level.mechanisms.length; i++) {
       const mech = level.mechanisms[i];
       if (mech === 'boss') continue;
-      // 自适应：综合关选最薄弱 topic，否则轮换；按掌握度推荐难度
       let topic = null;
       if (level.topics.length) {
         topic = level.subject === 'mixed'
@@ -50,9 +51,51 @@ export class ChamberScene extends Scene {
     }
   }
 
-  renderFrame() {
+  // 显示当前阶段的故事对话，点击后进入题目
+  showStory() {
+    this.root.className = 'scene scene-chamber story-mode';
+    this.root.style.setProperty('--uc', this.ultraman.color);
+    this.root.innerHTML = '';
+
+    const steps = this.level.storySteps || [];
+    const step = steps[this.index] || '';
+
+    // HUD
+    const hud = el('div', { class: 'chamber-hud' }, [
+      el('button', { class: 'btn-icon', text: '◀', title: '退出', onclick: () => {
+        if (confirm('退出本关？进度不会保存。')) { audio.click(); this.go(LevelSelectScene); }
+      } }),
+      el('div', { class: 'chamber-title', text: this.level.name }),
+      el('div', { class: 'chamber-progress', text: `${this.index + 1}/${this.puzzles.length}` }),
+    ]);
+    this.root.appendChild(hud);
+
+    // 奥特曼立绘 + 对话气泡
+    const storyWrap = el('div', { class: 'story-wrap' });
+    storyWrap.appendChild(el('div', { class: 'story-avatar', html: avatarSVG(this.ultraman, { size: 130 }) }));
+    const bubble = el('div', { class: 'story-bubble' });
+    bubble.appendChild(el('p', { class: 'story-text', text: step }));
+    storyWrap.appendChild(bubble);
+    this.root.appendChild(storyWrap);
+
+    // 继续按钮
+    const isBoss = this.index >= this.puzzles.length;
+    const cont = el('button', { class: 'btn btn-go story-continue', text: isBoss ? '迎战 Boss ▶' : '继续探索 ▶', onclick: () => {
+      audio.click();
+      if (isBoss) this.goBattle();
+      else this.renderPuzzle();
+    }});
+    this.root.appendChild(cont);
+
+    // 入场动画
+    requestAnimationFrame(() => storyWrap.classList.add('show'));
+  }
+
+  // 渲染当前题目
+  renderPuzzle() {
     this.root.className = 'scene scene-chamber';
     this.root.style.setProperty('--uc', this.ultraman.color);
+    this.root.innerHTML = '';
 
     const hud = el('div', { class: 'chamber-hud' }, [
       el('button', { class: 'btn-icon', text: '◀', title: '退出', onclick: () => {
@@ -92,13 +135,8 @@ export class ChamberScene extends Scene {
       },
       onContinue: () => {
         this.index++;
-        if (this.index >= this.puzzles.length) {
-          this.goBattle();
-        } else {
-          this.qBox.innerHTML = '';
-          this.mountQ();
-          this.root.querySelector('.chamber-progress').textContent = `${this.index + 1}/${this.puzzles.length}`;
-        }
+        // 每答完一题，先显示下一段故事，再出题
+        this.showStory();
       },
     });
   }
@@ -106,6 +144,7 @@ export class ChamberScene extends Scene {
   goBattle() {
     audio.beam();
     this.engine.flash(this.ultraman.color, 40);
+    audio.startMusic('battle');
     setTimeout(() => this.go(BattleScene, { run: this.run }), 600);
   }
 }
