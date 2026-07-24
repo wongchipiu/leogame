@@ -1,9 +1,11 @@
 // 题库聚合：数学 + 英语，提供选题与自适应接口
 import { MATH_QUESTIONS } from './questions-math.js';
 import { ENGLISH_QUESTIONS } from './questions-english.js';
+import { CHINESE_QUESTIONS } from './questions-chinese.js';
+import { SCIENCE_QUESTIONS } from './questions-science.js';
 import { shuffle } from '../core/utils.js';
 
-export const QUESTIONS = [...MATH_QUESTIONS, ...ENGLISH_QUESTIONS];
+export const QUESTIONS = [...MATH_QUESTIONS, ...ENGLISH_QUESTIONS, ...CHINESE_QUESTIONS, ...SCIENCE_QUESTIONS];
 export const QUESTION_MAP = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
 
 export const SUBJECTS = {
