@@ -1,0 +1,133 @@
+// 关卡配置：5 座光之密室 + 1 隐藏关
+// V1.0 解锁 level_1、level_4；V1.5 全部解锁；V2.0 追加语文/科学密室
+import { ULTRAMAN_MAP } from './ultraman.js';
+
+export const MECHANISMS = {
+  energy_lock: { name: '能量密码锁', desc: '输入算式结果，解锁光门' },
+  beam_refract: { name: '光线折射镜', desc: '计算角度，让光束命中目标' },
+  card_merge: { name: '变身卡合成', desc: '凑出目标数值，合成变身卡' },
+  constellation: { name: '星座连线', desc: '补全规律，点亮星座' },
+  tablet_translate: { name: '翻译石碑', desc: '翻译怪兽语，开启通路' },
+  voice_call: { name: '召唤咒语', desc: '补全咒语，召唤光之伙伴' },
+  balance: { name: '能量配平', desc: '平衡天平，稳定能量' },
+  boss: { name: 'Boss 战', desc: '答对必杀题，释放光线' },
+};
+
+export const LEVELS = [
+  {
+    id: 'level_1',
+    name: '数之回廊',
+    nameEn: 'Number Corridor',
+    ultramanId: 'tiga_composite',
+    subject: 'math',
+    topics: ['addition', 'subtraction', 'multiplication', 'division'],
+    order: 1,
+    puzzleCount: 4,
+    diffRange: [1, 3],
+    bossDiff: 4,
+    bgTheme: 'corridor',
+    story: '暗影贝利亚将「数之能量」封印在回廊的三道光门之后。迪迦，用你的运算之力破解密码锁吧！',
+    mechanisms: ['energy_lock', 'card_merge', 'energy_lock', 'boss'],
+    rewardCoins: 50,
+    unlockVersion: '1.0',
+  },
+  {
+    id: 'level_2',
+    name: '形之圣殿',
+    nameEn: 'Geometry Temple',
+    ultramanId: 'zero_miracle',
+    subject: 'math',
+    topics: ['geometry'],
+    order: 2,
+    puzzleCount: 4,
+    diffRange: [2, 4],
+    bossDiff: 4,
+    bgTheme: 'temple',
+    story: '形之圣殿的镜阵扭曲了空间。赛罗，用你对角度与对称的掌握，让光线照亮真相！',
+    mechanisms: ['beam_refract', 'constellation', 'energy_lock', 'boss'],
+    rewardCoins: 60,
+    unlockVersion: '1.5',
+  },
+  {
+    id: 'level_3',
+    name: '律之钟塔',
+    nameEn: 'Pattern Clocktower',
+    ultramanId: 'orb_spcz',
+    subject: 'math',
+    topics: ['pattern', 'algebra', 'fractions'],
+    order: 3,
+    puzzleCount: 4,
+    diffRange: [2, 4],
+    bossDiff: 5,
+    bgTheme: 'clocktower',
+    story: '钟塔的齿轮按神秘规律转动。欧布，找出数列与等式的规律，重启时间！',
+    mechanisms: ['constellation', 'energy_lock', 'balance', 'boss'],
+    rewardCoins: 70,
+    unlockVersion: '1.5',
+  },
+  {
+    id: 'level_4',
+    name: '语之剧场',
+    nameEn: 'English Theater',
+    ultramanId: 'zeta_alpha',
+    subject: 'english',
+    topics: ['vocab_animals', 'vocab_colors', 'vocab_numbers', 'vocab_actions', 'vocab_directions', 'vocab_body', 'sentences', 'grammar_be', 'command'],
+    order: 4,
+    puzzleCount: 4,
+    diffRange: [1, 4],
+    bossDiff: 4,
+    bgTheme: 'theater',
+    story: '剧场里的怪兽只会说英语。泽塔，翻译石碑、念出咒语，才能打开舞台后的密门！',
+    mechanisms: ['tablet_translate', 'voice_call', 'tablet_translate', 'boss'],
+    rewardCoins: 70,
+    unlockVersion: '1.0',
+  },
+  {
+    id: 'level_5',
+    name: '终焉之渊',
+    nameEn: 'Final Abyss',
+    ultramanId: 'taro_base',
+    subject: 'mixed',
+    topics: [],
+    order: 5,
+    puzzleCount: 5,
+    diffRange: [3, 5],
+    bossDiff: 5,
+    bgTheme: 'abyss',
+    story: '暗影贝利亚就在深渊尽头。泰罗，用你所有的数学与英语之力，击败他，重燃光之国！',
+    mechanisms: ['energy_lock', 'tablet_translate', 'constellation', 'balance', 'boss'],
+    rewardCoins: 100,
+    unlockVersion: '1.5',
+  },
+  {
+    id: 'level_secret',
+    name: '凤凰试炼',
+    nameEn: 'Phoenix Trial',
+    ultramanId: 'mebius_phoenix',
+    subject: 'mixed',
+    topics: [],
+    order: 6,
+    puzzleCount: 5,
+    diffRange: [4, 5],
+    bossDiff: 5,
+    bgTheme: 'phoenix',
+    story: '收集20张变身卡后开启。梦比优斯，证明你配得上无限之光！',
+    mechanisms: ['energy_lock', 'beam_refract', 'voice_call', 'balance', 'boss'],
+    rewardCoins: 150,
+    unlockVersion: '1.5',
+    secret: true,
+  },
+];
+
+export const LEVEL_MAP = Object.fromEntries(LEVELS.map(l => [l.id, l]));
+
+// 当前版本可玩的关卡
+export function isLevelUnlocked(level, version = '1.0') {
+  const order = ['1.0', '1.5', '2.0', '2.5', '3.0'];
+  return order.indexOf(level.unlockVersion) <= order.indexOf(version);
+}
+
+// 关卡使用的奥特曼
+export function levelUltraman(level) {
+  return ULTRAMAN_MAP[level.ultramanId];
+}
