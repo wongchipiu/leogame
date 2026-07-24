@@ -6,6 +6,7 @@ import { LevelSelectScene } from './level-select-scene.js';
 import { CollectionScene } from './collection-scene.js';
 import { SettingsScene } from './settings-scene.js';
 import { ReportScene } from './report-scene.js';
+import { MultiplayerScene } from './multiplayer-scene.js';
 
 export class MenuScene extends Scene {
   mount() {
@@ -27,6 +28,7 @@ export class MenuScene extends Scene {
     mk('开始游戏', `光之等级 Lv.${s.lightLevel}`, 'primary', () => this.go(LevelSelectScene));
     mk('变身图鉴', `${s.collectedCards.length} 张卡片`, '', () => this.go(CollectionScene));
     mk('家长报告', '查看学习情况', '', () => this.go(ReportScene));
+    mk('双人对战', '亲子/同学 PK', '', () => this.go(MultiplayerScene));
     mk('设置', '音效·关于', '', () => this.go(SettingsScene));
 
     this.root.appendChild(menu);

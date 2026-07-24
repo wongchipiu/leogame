@@ -324,6 +324,42 @@ body {
 .ach-item-name { font-size: 14px; font-weight: 700; }
 .ach-item-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
+/* ========== 双人对战 ========== */
+.scene-multiplayer { align-items: center; }
+.mp-status { color: var(--gold); font-size: 18px; margin-bottom: 16px; }
+.mp-picked { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.mp-player { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; text-align: center; min-width: 110px; }
+.mp-player.picked { border-color: var(--uc); box-shadow: 0 0 20px var(--uc); }
+.mp-player.empty { opacity: 0.5; }
+.mpp-name { font-size: 13px; color: var(--muted); }
+.mpp-u { font-size: 20px; font-weight: 800; }
+.mpp-form { font-size: 11px; color: var(--muted); }
+.mp-vs { font-size: 28px; font-weight: 900; color: var(--red); }
+.mp-pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; width: 100%; max-width: 560px; }
+.mp-pick-card { background: var(--card); border: 2px solid var(--uc); border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; transition: transform .15s; }
+.mp-pick-card:hover { transform: translateY(-3px); }
+.mpc-name { font-size: 18px; font-weight: 800; }
+.mpc-form { font-size: 11px; color: var(--muted); }
+.mp-score-bar { display: flex; align-items: center; justify-content: space-around; width: 100%; max-width: 560px; gap: 12px; margin-bottom: 12px; }
+.mp-score { text-align: center; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 12px 20px; min-width: 100px; opacity: 0.6; transition: all .25s; }
+.mp-score.active { opacity: 1; border-color: var(--uc); box-shadow: 0 0 24px var(--uc); transform: scale(1.05); }
+.mps-name { font-size: 12px; color: var(--muted); }
+.mps-avatar { font-size: 22px; font-weight: 900; color: var(--uc); }
+.mps-score { font-size: 32px; font-weight: 900; color: var(--gold); }
+.mp-round { font-size: 14px; color: var(--muted); background: var(--card); padding: 6px 14px; border-radius: 12px; }
+.mp-turn { text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.mp-turn.p1 { color: var(--blue); }
+.mp-turn.p2 { color: var(--red); }
+.mp-result { font-size: 32px; font-weight: 900; text-align: center; margin: 16px 0; }
+.mp-result.p1 { color: var(--blue); }
+.mp-result.p2 { color: var(--red); }
+.mp-result.draw { color: var(--gold); }
+.mp-final-scores { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+.mp-final { background: var(--card); border: 2px solid var(--uc); border-radius: 12px; padding: 16px 24px; text-align: center; }
+.mpf-name { font-size: 13px; color: var(--muted); }
+.mpf-avatar { font-size: 24px; font-weight: 800; color: var(--uc); }
+.mpf-score { font-size: 28px; font-weight: 900; color: var(--gold); }
+
 /* ========== 响应式 ========== */
 @media (max-width: 480px) {
   .scene { padding: 10px; }
