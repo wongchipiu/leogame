@@ -18,9 +18,9 @@ export const SUBJECTS = {
 // 按条件选题
 export function pickQuestions({
   subject = null, topic = null, topics = null,
-  minDiff = 1, maxDiff = 5, count = 1, exclude = [],
+  minDiff = 1, maxDiff = 5, count = 1, exclude = [], extra = [],
 } = {}) {
-  const pool = QUESTIONS.filter(q => {
+  const pool = [...QUESTIONS, ...extra].filter(q => {
     if (exclude.includes(q.id)) return false;
     if (subject && q.subject !== subject) return false;
     if (topic && q.topic !== topic) return false;

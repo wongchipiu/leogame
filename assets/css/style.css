@@ -360,6 +360,27 @@ body {
 .mpf-avatar { font-size: 24px; font-weight: 800; color: var(--uc); }
 .mpf-score { font-size: 28px; font-weight: 900; color: var(--gold); }
 
+/* ========== UGC 出题 ========== */
+.scene-ugc { align-items: center; }
+.ugc-sub { color: var(--muted); font-size: 13px; margin-bottom: 12px; text-align: center; }
+.ugc-list { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.ugc-empty { text-align: center; color: var(--muted); padding: 24px; background: var(--card); border-radius: 10px; }
+.ugc-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+.ugc-item-head { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; }
+.ugc-subj { font-size: 12px; font-weight: 700; }
+.ugc-diff { color: var(--gold); font-size: 12px; }
+.ugc-type-tag { font-size: 11px; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 8px; color: var(--muted); }
+.ugc-q { font-size: 15px; margin-bottom: 4px; }
+.ugc-ans { font-size: 13px; color: #10b981; }
+.btn.small { padding: 4px 12px; font-size: 12px; margin-top: 6px; }
+.ugc-form { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; }
+.ugc-field { display: flex; flex-direction: column; gap: 4px; }
+.ugc-field label { font-size: 13px; color: var(--muted); }
+.ugc-field input, .ugc-field select, .ugc-options input { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: var(--text); font-family: inherit; font-size: 15px; }
+.ugc-options { display: flex; flex-direction: column; gap: 4px; }
+.ugc-err { color: #f87171; font-size: 13px; min-height: 18px; }
+.ugc-form-btns { display: flex; gap: 10px; }
+
 /* ========== 响应式 ========== */
 @media (max-width: 480px) {
   .scene { padding: 10px; }

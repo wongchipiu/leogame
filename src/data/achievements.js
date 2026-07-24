@@ -14,6 +14,8 @@ export const ACHIEVEMENTS = [
   { id: 'all_clear', name: '光之国的英雄', desc: '通关全部密室', icon: '🌟' },
   { id: 'chinese_sage', name: '文字大师', desc: '完成文心书阁', icon: '📚' },
   { id: 'science_explorer', name: '科学探索者', desc: '完成穹苍之塔', icon: '🔭' },
+  { id: 'creator', name: '出题者', desc: '创建 1 道自定义题', icon: '✏️' },
+  { id: 'creator5', name: '题库大师', desc: '创建 5 道自定义题', icon: '📝' },
 ];
 
 const CHECK = {
@@ -31,6 +33,8 @@ const CHECK = {
   all_clear: (s) => ['level_1','level_2','level_3','level_4','level_5','level_chinese','level_science'].every(id => s.levelProgress[id]?.completed),
   chinese_sage: (s) => s.levelProgress['level_chinese']?.completed,
   science_explorer: (s) => s.levelProgress['level_science']?.completed,
+  creator: (s) => s.customQuestions.length >= 1,
+  creator5: (s) => s.customQuestions.length >= 5,
 };
 
 export function checkAchievements(store) {

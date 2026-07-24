@@ -18,7 +18,7 @@ export class GameEngine {
     this.stars = [];
     this.last = 0;
     this.running = false;
-    this.version = '2.5';
+    this.version = '3.0';
     this.adaptive = new Adaptive(storage);
     this.resize();
     window.addEventListener('resize', () => this.resize());
