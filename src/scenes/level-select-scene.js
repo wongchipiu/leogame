@@ -4,6 +4,7 @@ import { el } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { LEVELS, isLevelUnlocked, levelUltraman } from '../data/levels.js';
 import { ULTRAMAN_MAP, RARITY_INFO } from '../data/ultraman.js';
+import { avatarSVG } from '../core/avatar.js';
 import { TransformScene } from './transform-scene.js';
 import { MenuScene } from './menu-scene.js';
 
@@ -34,6 +35,7 @@ export class LevelSelectScene extends Scene {
 
       const rarity = RARITY_INFO[u.rarity];
       card.appendChild(el('div', { class: 'lc-rarity', text: rarity.name, style: `color:${rarity.color}` }));
+      card.appendChild(el('div', { class: 'lc-avatar', html: avatarSVG(u, { size: 70, glow: false }) }));
       card.appendChild(el('div', { class: 'lc-num', text: String(level.order).padStart(2, '0') }));
       card.appendChild(el('div', { class: 'lc-name', text: level.name }));
       card.appendChild(el('div', { class: 'lc-ultraman' }, [

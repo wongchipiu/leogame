@@ -4,6 +4,7 @@ import { el, sleep } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { pickQuestions } from '../data/questions.js';
 import { mountQuestion } from '../ui/question-view.js';
+import { avatarSVG, monsterSVG } from '../core/avatar.js';
 import { ResultScene } from './result-scene.js';
 
 export class BattleScene extends Scene {
@@ -36,12 +37,12 @@ export class BattleScene extends Scene {
 
     this.root.appendChild(el('div', { class: 'battle-stage' }, [
       el('div', { class: 'hero-side' }, [
-        el('div', { class: 'hero-avatar', style: `background:${this.ultraman.color}`, text: this.ultraman.name }),
+        el('div', { class: 'hero-avatar', style: `--uc:${this.ultraman.color}`, html: avatarSVG(this.ultraman, { size: 100 }) }),
         el('div', { class: 'hero-skill', text: this.ultraman.skill }),
       ]),
       el('div', { class: 'vs', text: 'VS' }),
       el('div', { class: 'boss-side' }, [
-        el('div', { class: 'boss-avatar', text: '暗影\n贝利亚' }),
+        el('div', { class: 'boss-avatar', html: monsterSVG({ size: 100 }) }),
         el('div', { class: 'boss-hp-bar' }, [el('div', { class: 'boss-hp-fill', id: 'bossHpFill' })]),
       ]),
     ]));

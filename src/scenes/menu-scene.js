@@ -8,6 +8,8 @@ import { SettingsScene } from './settings-scene.js';
 import { ReportScene } from './report-scene.js';
 import { MultiplayerScene } from './multiplayer-scene.js';
 import { UGCScene } from './ugc-scene.js';
+import { avatarSVG } from '../core/avatar.js';
+import { ULTRAMEN } from '../data/ultraman.js';
 
 export class MenuScene extends Scene {
   mount() {
@@ -34,11 +36,16 @@ export class MenuScene extends Scene {
     mk('设置', '音效·关于', '', () => this.go(SettingsScene));
 
     this.root.appendChild(menu);
-    this.root.appendChild(el('div', { class: 'version-tag', text: 'v1.0' }));
+    this.root.appendChild(el('div', { class: 'version-tag', text: 'v3.0' }));
 
-    // 装饰光球
+    // 装饰光球 + 浮动英雄头像
     this.root.appendChild(el('div', { class: 'light-orb orb1' }));
     this.root.appendChild(el('div', { class: 'light-orb orb2' }));
+    const heroStrip = el('div', { class: 'hero-strip' });
+    ULTRAMEN.forEach((u, i) => {
+      heroStrip.appendChild(el('div', { class: 'hero-strip-item', style: `--uc:${u.color};animation-delay:${i * 0.4}s`, html: avatarSVG(u, { size: 56, glow: false }) }));
+    });
+    this.root.appendChild(heroStrip);
   }
   render(ctx) {
     // 菜单底部光晕

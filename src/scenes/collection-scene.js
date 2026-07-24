@@ -4,6 +4,7 @@ import { el } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { ULTRAMEN, RARITY_INFO } from '../data/ultraman.js';
 import { ACHIEVEMENTS } from '../data/achievements.js';
+import { avatarSVG } from '../core/avatar.js';
 import { MenuScene } from './menu-scene.js';
 
 export class CollectionScene extends Scene {
@@ -19,6 +20,7 @@ export class CollectionScene extends Scene {
       const r = RARITY_INFO[u.rarity];
       const card = el('div', { class: 'col-card ' + (owned ? '' : 'locked'), style: `--uc:${u.color};--ua:${u.accent}` });
       card.appendChild(el('div', { class: 'cc-rarity', text: r.name, style: `color:${r.color}` }));
+      card.appendChild(el('div', { class: 'cc-avatar', html: owned ? avatarSVG(u, { size: 80 }) : '🔒' }));
       card.appendChild(el('div', { class: 'cc-name', text: owned ? u.name : '???' }));
       card.appendChild(el('div', { class: 'cc-form', text: owned ? u.form : '未解锁' }));
       if (owned) {
@@ -28,7 +30,6 @@ export class CollectionScene extends Scene {
         ]));
         card.appendChild(el('div', { class: 'cc-count', text: '×' + owned.count }));
       } else {
-        card.appendChild(el('div', { class: 'cc-lock', text: '🔒' }));
         card.appendChild(el('div', { class: 'cc-hint', text: u.unlockCondition }));
       }
       grid.appendChild(card);

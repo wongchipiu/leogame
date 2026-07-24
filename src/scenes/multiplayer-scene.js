@@ -4,6 +4,7 @@ import { el } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { pickQuestions } from '../data/questions.js';
 import { ULTRAMEN } from '../data/ultraman.js';
+import { avatarSVG } from '../core/avatar.js';
 import { mountQuestion } from '../ui/question-view.js';
 import { MenuScene } from './menu-scene.js';
 
@@ -35,6 +36,7 @@ export class MultiplayerScene extends Scene {
     const grid = el('div', { class: 'mp-pick-grid' });
     this.available.forEach(u => {
       const card = el('div', { class: 'mp-pick-card', style: `--uc:${u.color}`, onclick: () => this.pick(u) });
+      card.appendChild(el('div', { class: 'mpc-avatar', html: avatarSVG(u, { size: 70, glow: false }) }));
       card.appendChild(el('div', { class: 'mpc-name', text: u.name, style: `color:${u.color}` }));
       card.appendChild(el('div', { class: 'mpc-form', text: u.form }));
       grid.appendChild(card);
@@ -130,6 +132,7 @@ function playerCard(p, name) {
   if (p.ultraman) {
     return el('div', { class: 'mp-player picked', style: `--uc:${p.ultraman.color}` }, [
       el('div', { class: 'mpp-name', text: name }),
+      el('div', { class: 'mpp-avatar', html: avatarSVG(p.ultraman, { size: 60, glow: false }) }),
       el('div', { class: 'mpp-u', text: p.ultraman.name, style: `color:${p.ultraman.color}` }),
       el('div', { class: 'mpp-form', text: p.ultraman.form }),
     ]);
@@ -139,14 +142,14 @@ function playerCard(p, name) {
 function scoreBox(p, active, name) {
   return el('div', { class: 'mp-score ' + (active ? 'active' : ''), style: `--uc:${p.ultraman?.color || '#888'}` }, [
     el('div', { class: 'mps-name', text: name }),
-    el('div', { class: 'mps-avatar', text: p.ultraman?.name || '?' }),
+    el('div', { class: 'mps-avatar', html: p.ultraman ? avatarSVG(p.ultraman, { size: 50, glow: false }) : '?' }),
     el('div', { class: 'mps-score', text: p.score }),
   ]);
 }
 function finalScore(p, name) {
   return el('div', { class: 'mp-final', style: `--uc:${p.ultraman?.color || '#888'}` }, [
     el('div', { class: 'mpf-name', text: name }),
-    el('div', { class: 'mpf-avatar', text: p.ultraman?.name }),
+    el('div', { class: 'mpf-avatar', html: p.ultraman ? avatarSVG(p.ultraman, { size: 60, glow: false }) : '?' }),
     el('div', { class: 'mpf-score', text: p.score + ' 分' }),
   ]);
 }

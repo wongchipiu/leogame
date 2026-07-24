@@ -3,6 +3,7 @@ import { Scene } from '../core/scene.js';
 import { el, sleep } from '../core/utils.js';
 import { audio } from '../core/audio.js';
 import { ULTRAMAN_MAP } from '../data/ultraman.js';
+import { avatarSVG } from '../core/avatar.js';
 import { ChamberScene } from './chamber-scene.js';
 import { LevelSelectScene } from './level-select-scene.js';
 
@@ -55,6 +56,7 @@ export class TransformScene extends Scene {
     const card = el('div', { class: 'ultraman-card show', style: `--uc:${u.color};--ua:${u.accent}` });
     card.appendChild(el('div', { class: 'uc-name', text: u.name }));
     card.appendChild(el('div', { class: 'uc-form', text: u.form }));
+    card.appendChild(el('div', { class: 'uc-avatar', html: avatarSVG(u, { size: 140 }) }));
     card.appendChild(el('div', { class: 'uc-skill', text: '必杀：' + u.skill }));
     card.appendChild(el('div', { class: 'uc-stats' }, [
       statBar('力量', u.stats.power, u.color),

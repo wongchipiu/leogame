@@ -381,6 +381,20 @@ body {
 .ugc-err { color: #f87171; font-size: 13px; min-height: 18px; }
 .ugc-form-btns { display: flex; gap: 10px; }
 
+/* ========== 奥特曼 SVG 头像 ========== */
+.ultraman-svg, .monster-svg { display: block; }
+.uc-avatar { display: flex; justify-content: center; margin: 8px 0; filter: drop-shadow(0 0 16px var(--uc)); }
+.lc-avatar { display: flex; justify-content: center; margin: 6px 0; }
+.cc-avatar { display: flex; justify-content: center; align-items: center; min-height: 80px; font-size: 32px; }
+.mpc-avatar { display: flex; justify-content: center; margin-bottom: 4px; }
+.mpp-avatar { display: flex; justify-content: center; margin: 4px 0; }
+.mps-avatar, .mpf-avatar { display: flex; justify-content: center; margin: 4px 0; }
+
+/* 主菜单英雄头像条 */
+.hero-strip { position: absolute; bottom: 24px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 0 16px; pointer-events: none; }
+.hero-strip-item { filter: drop-shadow(0 0 8px var(--uc)); animation: heroFloat 3s ease-in-out infinite; opacity: 0.85; }
+@keyframes heroFloat { 50% { transform: translateY(-8px); } }
+
 /* ========== 响应式 ========== */
 @media (max-width: 480px) {
   .scene { padding: 10px; }
