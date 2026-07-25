@@ -77,6 +77,22 @@ body {
 
 /* ========== 主菜单 ========== */
 .scene-menu { align-items: center; justify-content: center; text-align: center; gap: 8px; }
+/* 背景图全屏覆盖 */
+.fp-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('../../src/frontpage.jpeg') center / cover no-repeat;
+  animation: fpZoom 20s ease-in-out infinite alternate;
+}
+@keyframes fpZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
+/* 渐变遮罩：上深下浅，保证标题与按钮可读 */
+.fp-overlay {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(10,14,39,0.85) 0%, rgba(10,14,39,0.45) 35%, rgba(10,14,39,0.55) 65%, rgba(10,14,39,0.9) 100%),
+    radial-gradient(ellipse at center, transparent 0%, rgba(10,14,39,0.5) 100%);
+}
+/* 让 logo 和按钮浮于背景之上 */
+.scene-menu > .logo, .scene-menu > .menu-buttons, .scene-menu > .version-tag, .scene-menu > .light-orb, .scene-menu > .hero-strip { position: relative; z-index: 2; }
 .logo { margin-bottom: 24px; }
 .title {
   font-size: clamp(48px, 12vw, 96px); font-weight: 900;
@@ -88,6 +104,7 @@ body {
 @keyframes glow { 50% { filter: brightness(1.2); } }
 .subtitle { font-size: clamp(28px, 7vw, 52px); font-weight: 700; color: var(--silver); letter-spacing: 12px; }
 .title-en { color: var(--muted); font-size: 12px; letter-spacing: 6px; margin-top: 8px; }
+.title-line { width: 60px; height: 3px; margin: 16px auto 0; background: linear-gradient(90deg, transparent, var(--gold), transparent); border-radius: 2px; }
 .menu-buttons { display: flex; flex-direction: column; gap: 12px; width: min(320px, 86vw); margin-top: 24px; }
 .btn-menu {
   display: flex; flex-direction: column; gap: 2px; align-items: flex-start;

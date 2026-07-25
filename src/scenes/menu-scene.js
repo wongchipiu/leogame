@@ -16,10 +16,17 @@ export class MenuScene extends Scene {
     const s = this.store.get();
     audio.startMusic('menu');
     this.root.className = 'scene scene-menu';
+
+    // 背景图层 + 渐变遮罩（保证文字可读）
+    this.root.appendChild(el('div', { class: 'fp-bg' }));
+    this.root.appendChild(el('div', { class: 'fp-overlay' }));
+
+    // 标题区
     this.root.appendChild(el('div', { class: 'logo' }, [
       el('h1', { class: 'title', text: '奥特曼' }),
       el('h2', { class: 'subtitle', text: '光之密室' }),
       el('div', { class: 'title-en', text: 'CHAMBER OF LIGHT' }),
+      el('div', { class: 'title-line' }),
     ]));
 
     const menu = el('div', { class: 'menu-buttons' });
