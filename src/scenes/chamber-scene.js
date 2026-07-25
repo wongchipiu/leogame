@@ -54,7 +54,7 @@ export class ChamberScene extends Scene {
 
   // 显示当前阶段的故事对话，点击后进入题目
   showStory() {
-    this.root.className = 'scene scene-chamber story-mode';
+    this.root.className = 'scene scene-chamber story-mode scene-in';
     this.root.style.setProperty('--uc', this.ultraman.color);
     this.root.innerHTML = '';
 
@@ -94,7 +94,7 @@ export class ChamberScene extends Scene {
 
   // 渲染当前题目
   renderPuzzle() {
-    this.root.className = 'scene scene-chamber';
+    this.root.className = 'scene scene-chamber scene-in';
     this.root.style.setProperty('--uc', this.ultraman.color);
     this.root.innerHTML = '';
 
