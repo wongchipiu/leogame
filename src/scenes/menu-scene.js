@@ -12,7 +12,7 @@ import { TransformScene } from './transform-scene.js';
 import { avatarSVG } from '../core/avatar.js';
 import { ULTRAMEN } from '../data/ultraman.js';
 import { LEVELS } from '../data/levels.js';
-import { QUESTIONS } from '../data/questions.js';
+import { QUESTIONS, GRADES } from '../data/questions.js';
 
 export class MenuScene extends Scene {
   mount() {
@@ -39,7 +39,8 @@ export class MenuScene extends Scene {
       if (sub) b.appendChild(el('div', { class: 'btn-sub', text: sub }));
       menu.appendChild(b);
     };
-    mk('开始游戏', `光之等级 Lv.${s.lightLevel}`, 'primary', () => this.go(LevelSelectScene));
+    const gradeName = (GRADES.find(g => g.grade === s.grade) || GRADES[2]).name;
+    mk('开始游戏', `${gradeName} · 光之等级 Lv.${s.lightLevel}`, 'primary', () => this.go(LevelSelectScene));
 
     // 每日挑战：推荐最薄弱知识点的关卡
     const daily = this.getDailyChallenge(s);

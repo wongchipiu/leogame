@@ -2,6 +2,7 @@
 const KEY = 'ultraman_col_v1';
 
 const defaults = {
+  grade: 3,                 // 年级 1-6（默认三年级，9岁）
   lightLevel: 1,            // 光之等级
   lightExp: 0,              // 光之经验
   coins: 0,                 // 光能币

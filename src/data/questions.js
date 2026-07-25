@@ -15,11 +15,32 @@ export const SUBJECTS = {
   science: { name: '科学', icon: '🔬', color: '#8b5cf6' },
 };
 
+// 年级到难度范围映射（覆盖小学1-6年级）
+export const GRADES = [
+  { grade: 1, name: '一年级', minDiff: 1, maxDiff: 2, desc: '基础启蒙' },
+  { grade: 2, name: '二年级', minDiff: 1, maxDiff: 3, desc: '巩固提升' },
+  { grade: 3, name: '三年级', minDiff: 1, maxDiff: 4, desc: '课标核心' },
+  { grade: 4, name: '四年级', minDiff: 2, maxDiff: 4, desc: '进阶拓展' },
+  { grade: 5, name: '五年级', minDiff: 3, maxDiff: 5, desc: '挑战冲刺' },
+  { grade: 6, name: '六年级', minDiff: 3, maxDiff: 5, desc: '小升初' },
+];
+
+export function gradeRange(grade) {
+  const g = GRADES.find(g => g.grade === grade) || GRADES[2];
+  return { minDiff: g.minDiff, maxDiff: g.maxDiff };
+}
+
 // 按条件选题
 export function pickQuestions({
   subject = null, topic = null, topics = null,
-  minDiff = 1, maxDiff = 5, count = 1, exclude = [], extra = [],
+  minDiff = 1, maxDiff = 5, count = 1, exclude = [], extra = [], grade = null,
 } = {}) {
+  // 年级覆盖难度范围
+  if (grade) {
+    const r = gradeRange(grade);
+    minDiff = Math.max(minDiff, r.minDiff);
+    maxDiff = Math.min(maxDiff, r.maxDiff);
+  }
   const pool = [...QUESTIONS, ...extra].filter(q => {
     if (exclude.includes(q.id)) return false;
     if (subject && q.subject !== subject) return false;

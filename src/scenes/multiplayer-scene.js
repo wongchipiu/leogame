@@ -59,7 +59,7 @@ export class MultiplayerScene extends Scene {
   }
 
   startBattle() {
-    this.questions = pickQuestions({ minDiff: 2, maxDiff: 4, count: this.rounds * 2, extra: this.store.get().customQuestions });
+    this.questions = pickQuestions({ minDiff: 2, maxDiff: 4, count: this.rounds * 2, extra: this.store.get().customQuestions, grade: this.store.get().grade });
     this.qIndex = 0;
     this.activePlayer = 1;
     this.phase = 'battle';

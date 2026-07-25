@@ -26,6 +26,7 @@ export class BattleScene extends Scene {
       topics: this.level.topics.length ? this.level.topics : null,
       minDiff: this.level.bossDiff, maxDiff: 5, count: 1, exclude,
       extra: this.store.get().customQuestions,
+      grade: this.store.get().grade,
     });
     return picked[0] || pickQuestions({ count: 1, exclude })[0] || pickQuestions({ count: 1 })[0];
   }

@@ -2,6 +2,7 @@
 import { Scene } from '../core/scene.js';
 import { el } from '../core/utils.js';
 import { audio } from '../core/audio.js';
+import { GRADES } from '../data/questions.js';
 import { MenuScene } from './menu-scene.js';
 
 export class SettingsScene extends Scene {
@@ -27,6 +28,36 @@ export class SettingsScene extends Scene {
     };
 
     const list = el('div', { class: 'settings-list' });
+
+    // 年级选择
+    const gradeRow = el('div', { class: 'setting-row grade-row' }, [
+      el('span', { text: '年级' }),
+    ]);
+    const gradeBtns = el('div', { class: 'grade-btns' });
+    GRADES.forEach(g => {
+      const active = s.grade === g.grade;
+      const btn = el('button', {
+        class: 'grade-btn ' + (active ? 'active' : ''),
+        text: g.name.replace('年级', ''),
+        title: g.desc,
+        onclick: () => {
+          s.grade = g.grade;
+          this.store.save();
+          audio.click();
+          audio.unlock();
+          gradeBtns.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          gradeDesc.textContent = `${g.name} · ${g.desc} · 难度${g.minDiff}-${g.maxDiff}星`;
+        },
+      });
+      gradeBtns.appendChild(btn);
+    });
+    gradeRow.appendChild(gradeBtns);
+    list.appendChild(gradeRow);
+    const curGrade = GRADES.find(g => g.grade === s.grade) || GRADES[2];
+    const gradeDesc = el('div', { class: 'grade-desc', text: `${curGrade.name} · ${curGrade.desc} · 难度${curGrade.minDiff}-${curGrade.maxDiff}星` });
+    list.appendChild(gradeDesc);
+
     list.appendChild(toggle('音效', 'sound'));
     list.appendChild(toggle('背景音乐', 'music'));
     this.root.appendChild(list);

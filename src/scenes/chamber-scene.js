@@ -44,6 +44,7 @@ export class ChamberScene extends Scene {
         topics: level.topics.length ? level.topics : null,
         minDiff: Math.max(minD, recDiff - 1), maxDiff: Math.min(maxD, recDiff + 1),
         count: 1, exclude, extra: this.store.get().customQuestions,
+        grade: this.store.get().grade,
       });
       if (!picked.length) continue;
       this.puzzles.push({ mechanism: mech, question: picked[0] });
