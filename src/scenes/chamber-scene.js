@@ -130,7 +130,7 @@ export class ChamberScene extends Scene {
       onAnswered: (correct) => {
         this.run.chamberTotal++;
         if (correct) this.run.chamberCorrect++;
-        this.run.history.push({ id: p.question.id, correct, subject: p.question.subject, topic: p.question.topic });
+        this.run.history.push({ id: p.question.id, correct, subject: p.question.subject, topic: p.question.topic, question: p.question.question, answer: p.question.answer, explain: p.question.explain, topicName: p.question.topicName });
         this.engine.adaptive.update(p.question.topic, correct);
       },
       onContinue: () => {

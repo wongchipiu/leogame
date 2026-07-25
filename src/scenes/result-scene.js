@@ -182,6 +182,25 @@ export class ResultScene extends Scene {
       this.root.appendChild(aBox);
     }
 
+    // 知识回顾：展示答错的题目
+    const wrongList = this.run.history.filter(h => !h.correct && h.question);
+    if (wrongList.length) {
+      const review = el('div', { class: 'review-section' });
+      review.appendChild(el('h3', { class: 'review-title', text: '📝 知识回顾（答错的题）' }));
+      wrongList.forEach((h, i) => {
+        const card = el('div', { class: 'review-card' });
+        card.appendChild(el('div', { class: 'rc-head' }, [
+          el('span', { class: 'rc-topic', text: h.topicName || h.topic }),
+          h.boss ? el('span', { class: 'rc-boss', text: 'Boss题' }) : null,
+        ].filter(Boolean)));
+        card.appendChild(el('div', { class: 'rc-question', text: `${i + 1}. ${h.question}` }));
+        card.appendChild(el('div', { class: 'rc-answer', text: '✅ 正确答案：' + h.answer }));
+        card.appendChild(el('div', { class: 'rc-explain', text: h.explain }));
+        review.appendChild(card);
+      });
+      this.root.appendChild(review);
+    }
+
     // 按钮
     const btns = el('div', { class: 'result-buttons' });
     const nextLevel = this.nextLevel();

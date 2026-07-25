@@ -60,7 +60,7 @@ export class BattleScene extends Scene {
     this.qc = mountQuestion(this.qBox, this.bossQuestion, {
       engine: this.engine,
       onAnswered: (correct) => {
-        this.run.history.push({ id: this.bossQuestion.id, correct, subject: this.bossQuestion.subject, topic: this.bossQuestion.topic, boss: true });
+        this.run.history.push({ id: this.bossQuestion.id, correct, subject: this.bossQuestion.subject, topic: this.bossQuestion.topic, boss: true, question: this.bossQuestion.question, answer: this.bossQuestion.answer, explain: this.bossQuestion.explain, topicName: this.bossQuestion.topicName });
         this.engine.adaptive.update(this.bossQuestion.topic, correct);
         if (correct) {
           this.bossHp = 0;

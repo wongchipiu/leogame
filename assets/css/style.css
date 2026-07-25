@@ -430,6 +430,26 @@ body {
 .story-text { font-size: 18px; line-height: 1.7; text-align: center; color: var(--text); }
 .story-continue { margin-top: 8px; }
 
+/* ========== 答错重试 ========== */
+.q-retry { margin-top: 12px; text-align: center; animation: cardIn 0.3s ease; }
+.q-retry-msg { color: #f87171; font-weight: 700; margin-bottom: 8px; }
+.q-retry-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ========== 知识回顾 ========== */
+.review-section { width: 100%; max-width: 640px; margin-top: 20px; }
+.review-title { color: var(--gold); margin-bottom: 10px; }
+.review-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid #ef4444; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+.rc-head { display: flex; gap: 8px; margin-bottom: 6px; }
+.rc-topic { font-size: 12px; color: var(--blue); background: rgba(59,130,246,0.15); padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+.rc-boss { font-size: 11px; color: #ef4444; background: rgba(239,68,68,0.15); padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+.rc-question { font-size: 15px; margin-bottom: 4px; }
+.rc-answer { font-size: 13px; color: #10b981; margin-bottom: 4px; }
+.rc-explain { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ========== 每日挑战按钮 ========== */
+.btn-menu.daily { background: linear-gradient(135deg, #7c3aed, #ec4899); border-color: transparent; box-shadow: 0 4px 20px rgba(124,58,237,0.4); }
+.btn-menu.daily:hover { background: linear-gradient(135deg, #8b5cf6, #f472b6); }
+
 /* ========== 响应式 ========== */
 @media (max-width: 480px) {
   .scene { padding: 10px; }

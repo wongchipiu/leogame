@@ -8,8 +8,11 @@ import { SettingsScene } from './settings-scene.js';
 import { ReportScene } from './report-scene.js';
 import { MultiplayerScene } from './multiplayer-scene.js';
 import { UGCScene } from './ugc-scene.js';
+import { TransformScene } from './transform-scene.js';
 import { avatarSVG } from '../core/avatar.js';
 import { ULTRAMEN } from '../data/ultraman.js';
+import { LEVELS } from '../data/levels.js';
+import { QUESTIONS } from '../data/questions.js';
 
 export class MenuScene extends Scene {
   mount() {
@@ -37,6 +40,16 @@ export class MenuScene extends Scene {
       menu.appendChild(b);
     };
     mk('开始游戏', `光之等级 Lv.${s.lightLevel}`, 'primary', () => this.go(LevelSelectScene));
+
+    // 每日挑战：推荐最薄弱知识点的关卡
+    const daily = this.getDailyChallenge(s);
+    if (daily) {
+      mk('每日挑战', `薄弱：${daily.topicName} -> ${daily.level.name}`, 'daily', () => {
+        audio.click();
+        this.go(TransformScene, { level: daily.level });
+      });
+    }
+
     mk('变身图鉴', `${s.collectedCards.length} 张卡片`, '', () => this.go(CollectionScene));
     mk('家长报告', '查看学习情况', '', () => this.go(ReportScene));
     mk('双人对战', '亲子/同学 PK', '', () => this.go(MultiplayerScene));
@@ -63,5 +76,20 @@ export class MenuScene extends Scene {
     g.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
+  }
+
+  // 每日挑战：推荐掌握度最低的知识点所在关卡
+  getDailyChallenge(s) {
+    const ts = s.topicStats || {};
+    const topics = Object.entries(ts).filter(([, v]) => v.total >= 1);
+    if (!topics.length) {
+      const lv = LEVELS[0];
+      return { level: lv, topicName: '入门挑战' };
+    }
+    topics.sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
+    const weakTopic = topics[0][0];
+    const lv = LEVELS.find(l => l.topics.includes(weakTopic)) || LEVELS[0];
+    const q = QUESTIONS.find(x => x.topic === weakTopic);
+    return { level: lv, topicName: q ? q.topicName : weakTopic };
   }
 }
